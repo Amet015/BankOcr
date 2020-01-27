@@ -28,7 +28,7 @@ public class DecodeNumber {
         map.put(NINE, "9");
         map.put(ZERO, "0");
     }
-    
+
     public String convertToNumber(String numbers) {
         return  map.getOrDefault(numbers,QUESTION_MARK).toString();
     }
