@@ -13,10 +13,10 @@ public class DecodeNumber {
     private final String NINE = " _ |_| _|";
     private final String ZERO = " _ | ||_|";
     private final String QUESTION_MARK = "?";
+    private Map map;
 
-    public String convertToNumber(String numbers) {
-
-        Map map = new HashMap<>();
+    public DecodeNumber(){
+        map = new HashMap<>();
         map.put(ONE, "1");
         map.put(TWO, "2");
         map.put(THREE, "3");
@@ -27,7 +27,9 @@ public class DecodeNumber {
         map.put(EIGHT, "8");
         map.put(NINE, "9");
         map.put(ZERO, "0");
-
+    }
+    
+    public String convertToNumber(String numbers) {
         return  map.getOrDefault(numbers,QUESTION_MARK).toString();
     }
 }
