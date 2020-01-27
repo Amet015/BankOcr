@@ -6,22 +6,20 @@ import java.util.Scanner;
 
 public class ScannerOcr {
 
-    private String line1;
-    private String line2;
-    private String line3;
+
     private String numbers;
+    ArrayList<String> arrayLine;
 
     public ScannerOcr()
     {
-        line1 = "";
-        line2 = "";
-        line3 = "";
         numbers = "";
+        arrayLine = new ArrayList<>();
+
     }
     public void scanDocument(String account) {
         File file = new File(account);
 
-        ArrayList<String> arrayLine = new ArrayList<>();
+
         try {
             Scanner scanner = new Scanner(file);
 
@@ -33,36 +31,31 @@ public class ScannerOcr {
             e.printStackTrace();
         }
 
-        line1 = arrayLine.get(0);
-        line2 = arrayLine.get(1);
-        line3 = arrayLine.get(2);
     }
 
-    public String getLine1() {
-        return line1;
-    }
-
-    public String getLine2() {
-        return line2;
-    }
-
-    public String getLine3() {
-        return line3;
+    public ArrayList<String> getArrayLines() {
+        return arrayLine;
     }
 
     public String getNumbers() {
-        String numbersAccount;
-        int indexStart = 0;
-        int indexEnd = 3;
-        int lenthtLine = line1.length();
+        String numbersAccount = "";
+        int indexEnd = 0;
+        int lenghtLine = 0;
+        final int LINES = arrayLine.size();
         DecodeNumber decodeNumber = new DecodeNumber();
-        while (indexEnd <= lenthtLine) {
-            numbersAccount = line1.substring(indexStart, indexEnd) + line2.substring(indexStart, indexEnd) + line3
-                    .substring(indexStart, indexEnd);
-            numbers += decodeNumber.convertToNumber(numbersAccount);
-            indexStart = indexEnd;
-            indexEnd = indexEnd + 3;
+        for (int i = 0; i <LINES ; i++) {
+            lenghtLine += arrayLine.get(i).length();
         }
+        lenghtLine = (lenghtLine / LINES) - LINES;
+        for (int indexStart = 0; indexStart <= lenghtLine ; indexStart+=3) {
+            indexEnd = indexStart + 3;
+            for (int index = 0; index < arrayLine.size() ; index++) {
+                numbersAccount += arrayLine.get(index).substring(indexStart,indexEnd);
+            }
+            numbers += decodeNumber.convertToNumber(numbersAccount);
+            numbersAccount = "";
+        }
+
         return numbers;
     }
 }

@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class ScannerOcrTest {
@@ -8,13 +11,15 @@ public class ScannerOcrTest {
     public void Scanner_ReadNumbers_123456789() {
         ScannerOcr scannerOcr = new ScannerOcr();
         scannerOcr.scanDocument("Account.txt");
-
+        ArrayList<String> expectedLines = new ArrayList<>();
         String line1 = "    _  _     _  _  _  _  _ ";
         String line2 = "  | _| _||_||_ |_   ||_||_|";
         String line3 = "  ||_  _|  | _||_|  ||_| _|";
-        assertEquals(line1,scannerOcr.getLine1());
-        assertEquals(line2,scannerOcr.getLine2());
-        assertEquals(line3,scannerOcr.getLine3());
+        expectedLines.add(line1);
+        expectedLines.add(line2);
+        expectedLines.add(line3);
+        ArrayList<String> actuaLines = scannerOcr.getArrayLines();
+        assertEquals(expectedLines, actuaLines);
     }
 
     @Test
